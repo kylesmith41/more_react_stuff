@@ -9,6 +9,7 @@ import authenticationReducer from './components/reducers/authentication';
 
 import App from './components/app';
 import Resources from './components/resources';
+import Middleware from './components/middleware';
 
 //import reducers from './reducers';
 
@@ -19,6 +20,7 @@ ReactDOM.render(
     <Router history={browserHistory}>
         <Route path="/" component={App}>
           <Route path="resources" component={Resources}/>
+          <Route path="middleware" component={Middleware}/>
         </Route>
     </Router>
   </Provider>

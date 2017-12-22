@@ -3,11 +3,13 @@ import Immutable from 'immutable';
 import {
   createStore
 } from 'redux';
-import authenticationReducer from './authentication';
+import authentication from './authentication';
+import users from './users';
 
-const initialState = Immutable.Map();
 const rootReducer = combineReducers({
-  app:authenticationReducer
+  authentication,
+  users
 });
+
 
 export default rootReducer;

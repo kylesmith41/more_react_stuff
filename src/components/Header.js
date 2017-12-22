@@ -10,7 +10,7 @@ let AuthButton = ({onClick, authenticated}) => {
 
 const mapStateToProps = state => {
   return {
-    authenticated:state.getIn(['app', 'authenticated'])
+    authenticated:state.getIn(['authentication', 'authenticated'])
   }
 }
 
@@ -30,6 +30,9 @@ class Header extends Component {
           </li>
           <li className="nav-item">
           <Link to="/resources">Resources</Link>
+          </li>
+          <li className="nav-item">
+          <Link to="/middleware">Middleware</Link>
           </li>
           <li className="nav-item">
             <AuthButton authenticated={this.props.authenticated} />

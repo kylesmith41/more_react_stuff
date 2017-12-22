@@ -1,15 +1,30 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import { withRouter } from 'react-router';
 
 export default (ComposedComponent) => {
-  const Authentication = ({authenticated}, props) => {
-    return (
-      <div>
-        {authenticated && <ComposedComponent {...props} />}
-      </div>
-    );
+
+  class Authentication extends Component {
+    componentWillMount() {
+      if(!this.props.authenticated) {
+          this.props.router.push('/');
+      }
+    }
+
+    componentWillUpdate(nextProps) {
+      if(!nextProps.authenticated) {
+          this.props.router.push('/');
+      }
+    }
+
+    render() {
+      return <ComposedComponent {...this.props} />
+    }
   }
-  return connect(state => ({authenticated:state.getIn(['app', 'authenticated'])}))(Authentication);
+
+  const mapStateToProps = state => ({authenticated:state.getIn(['authentication', 'authenticated'])});
+  Authentication = connect(mapStateToProps)(Authentication)
+  return withRouter(Authentication);
 }
 
 
@@ -25,9 +40,28 @@ export default (ComposedComponent) => {
 }
 */
 
+/* class version */
 /*
-in some other file
+export default (ComposedComponent) => {
+  class Authentication extends Component {
+    render() {
+      if(!this.props.authenticated) {
+        return null;
+      }
+      return <ComposedComponent {...this.props} />
+    }
+  }
+  return Authentication;
+}
+*/
 
-import Authentication;
-const ComposedComponent = Authentication(Resources)
-f*/
+/* Simple Version */
+/*
+const Authentication = ({authenticated}, props) => {
+  return (
+    <div>
+      {authenticated && <ComposedComponent {...props} />}
+    </div>
+  );
+}
+*/
